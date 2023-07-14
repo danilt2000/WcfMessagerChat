@@ -42,9 +42,9 @@ namespace WcfServiceLibraryChat
 			{
 				users.Remove(user);
 
-				user.OperationContext.GetCallbackChannel<IServerChatCallback>().MsgCallback(id.ToString());
 				//SendMsg(user.Name + "user left the chat room!", 0);
 			}
+			user.OperationContext.GetCallbackChannel<IServerChatCallback>().MsgCallback(id.ToString());
 		}
 
 		//public void SendMsg(string msg, int id)
