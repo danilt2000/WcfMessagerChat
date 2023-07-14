@@ -10,10 +10,12 @@ namespace WcfServiceLibraryChat
 {
 
 	//[ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant)]
-	//[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-	[ServiceBehavior]
+	[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+	//[ServiceBehavior]
 	public class ServiceChat : IServiceChat
 	{
+
+		public static IServerChatCallback Callback;
 		List<ServerUser> users = new List<ServerUser>();
 
 		int nextId = 0;
@@ -44,7 +46,11 @@ namespace WcfServiceLibraryChat
 
 				//SendMsg(user.Name + "user left the chat room!", 0);
 			}
-			user.OperationContext.GetCallbackChannel<IServerChatCallback>().MsgCallback(id.ToString());
+			Callback = OperationContext.Current.GetCallbackChannel<IServerChatCallback>();
+
+			Callback.MsgCallback(id.ToString());
+
+			//user.OperationContext.GetCallbackChannel<IServerChatCallback>().MsgCallback(id.ToString());
 		}
 
 		//public void SendMsg(string msg, int id)

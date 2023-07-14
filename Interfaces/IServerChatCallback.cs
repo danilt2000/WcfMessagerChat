@@ -9,6 +9,7 @@ namespace WcfServiceLibraryChat.Interfaces
 {
 	public interface IServerChatCallback
 	{
+		//[OperationContract(IsOneWay = true)]
 		void MsgCallback(string msg);
 	}
 }
